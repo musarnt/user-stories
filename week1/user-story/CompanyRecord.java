@@ -14,7 +14,7 @@ public record CompanyRecord(
  * VERBOSITY:
  * The Employee class required explicit field declarations,
  * a full constructor, and would need manual getters to access data.
- * This Record achieves the same result in a single line —
+ * This Record achieves the same result in a single line
  * Java auto-generates the constructor, getters, toString(),
  * equals(), and hashCode().
  *
