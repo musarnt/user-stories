@@ -1,13 +1,11 @@
 package com.talenthub;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+    public static void main(String[] args) {
+
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.mostrarOpcionModerno(3);
+
+        System.out.println(menu.getSalaryCategory(7001));
     }
 }
