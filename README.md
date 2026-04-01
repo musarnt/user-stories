@@ -75,3 +75,8 @@ develop → feature/weekX-user-story → develop → main (final delivery)
 | Week 3 | | ⬜ Pending |
 | Week 4 | | ⬜ Pending |
 | Week 5 | | ⬜ Pending |
+
+## Language Convention
+
+- **Code, variables, and comments:** English
+- **Research topics (research-topics/):** Spanish
