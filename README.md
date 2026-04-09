@@ -1,8 +1,7 @@
 # User Stories - Corporate Talent Hub
 
 Java learning project developed at Riwi coding bootcamp.
-Each week covers a user story, practical challenges, and research topics
-based on the Moodle course content.
+Each week covers a user story based on the Moodle course content.
 
 ---
 
@@ -10,17 +9,15 @@ based on the Moodle course content.
 
     user-stories/
     ├── week1/
-    │   ├── user-story/           # Weekly user story implementation
-    │   ├── practical-challenges/ # Daily coding challenges
-    │   └── research-topics/      # Research and investigation
+    │   └── user-story/   # Weekly user story implementation
     ├── week2/
-    │   └── ...
+    │   └── user-story/
     ├── week3/
-    │   └── ...
+    │   └── user-story/
     ├── week4/
-    │   └── ...
+    │   └── user-story/
     └── week5/
-        └── ...
+        └── user-story/
 
 ---
 
@@ -31,17 +28,6 @@ based on the Moodle course content.
     cd weekX/user-story
     javac *.java
     java Main
-
-### Practical Challenges — Plain Java (Week 1)
-
-    cd week1/practical-challenges/dayX
-    javac FileName.java
-    java FileName
-
-### Practical Challenges — Maven (Week 2+)
-
-    cd weekX/practical-challenges/dayX
-    mvn compile exec:java "-Dexec.mainClass=com.riwi.App"
 
 ---
 
@@ -64,7 +50,6 @@ This project follows Gitflow conventions:
 ## Tech Stack
 
 - Java 21 (Eclipse Temurin)
-- Maven 3.9.x (Week 2+)
 - VS Code with Extension Pack for Java
 
 ---
@@ -84,4 +69,3 @@ This project follows Gitflow conventions:
 ## Language Convention
 
 - **Code, variables, and comments:** English
-- **Research topics (research-topics/):** Spanish
