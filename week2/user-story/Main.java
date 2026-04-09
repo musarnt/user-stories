@@ -49,17 +49,29 @@ public class Main {
                 var input = scanner.nextInt();
                 option = input;
 
+                // TASK 1: main menu uses legacy switch (Java 8) as required by the spec
+                // Fall-through risk exists if break is omitted — contrast with modern switch expression in MainMenu.java
                 switch (option) {
-                    case 1 -> menu.showMainMenu(option);
-                    case 2 -> {
+                    case 1:
+                        menu.showMainMenu(option);
+                        break;
+                    case 2:
                         System.out.print("Enter salary: ");
                         var salary = scanner.nextDouble();
                         System.out.println("Category: " + menu.getSalaryCategory(salary));
-                    }
-                    case 3 -> matrix.generateReport();
-                    case 4 -> robustSystem.evaluatePromotion(scanner);
-                    case 0 -> System.out.println("Goodbye!");
-                    default -> System.out.println("Invalid option.");
+                        break;
+                    case 3:
+                        matrix.generateReport();
+                        break;
+                    case 4:
+                        robustSystem.evaluatePromotion(scanner);
+                        break;
+                    case 0:
+                        System.out.println("Goodbye!");
+                        break;
+                    default:
+                        System.out.println("Invalid option.");
+                        break;
                 }
 
             } catch (java.util.InputMismatchException e) {
