@@ -6,7 +6,7 @@ Any class in any package could extend Person freely:
 
 public abstract class Person { ... }
 
-Problem: the domain is unprotected. A class like "Hacker" or "TempWorker"
+Problem: the domain is unprotected. Any class - intended or not -
 could extend Person without the API designer ever intending it.
 This makes exhaustive pattern matching impossible and weakens domain control.
 
