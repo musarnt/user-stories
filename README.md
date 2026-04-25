@@ -23,11 +23,16 @@ Each week covers a user story based on the Moodle course content.
 
 ## How to Run the Code
 
-### User Stories — Plain Java (all weeks)
+### Weeks 1 to 4 — Plain Java
 
     cd weekX/user-story
     javac *.java
     java Main
+
+### Week 5 — Maven project
+
+    cd week5/user-story
+    mvn compile exec:java "-Dexec.mainClass=com.riwi.App"
 
 ---
 
@@ -43,13 +48,13 @@ This project follows Gitflow conventions:
 
 **Workflow per week:**
 
-    develop → feature/weekX-user-story → develop → main (final delivery)
+    develop -> feature/weekX-user-story -> develop -> main (final delivery)
 
 ---
 
 ## Tech Stack
 
-- Java 21 (Eclipse Temurin)
+- Java 17 (weeks 1-4), Maven + H2 (week 5)
 - VS Code with Extension Pack for Java
 
 ---
@@ -58,14 +63,15 @@ This project follows Gitflow conventions:
 
 | Week | Topic | Status |
 |---|---|---|
-| Week 1 | Architecture, primitives, Records, operator precedence | Done |
+| Week 1 | JVM architecture, primitives, records, operator precedence | Done |
 | Week 2 | Control flow, switch expressions, matrices, exceptions | Done |
-| Week 3 | | Pending |
-| Week 4 | | Pending |
-| Week 5 | | Pending |
+| Week 3 | Collections, generics, functional interfaces | Done |
+| Week 4 | Sealed classes, interfaces, pattern matching, inheritance | Done |
+| Week 5 | JDBC, MVC architecture, H2 database, CRUD | Done |
 
 ---
 
 ## Language Convention
 
 - **Code, variables, and comments:** English
+- **READMEs:** English
