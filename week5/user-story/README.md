@@ -1,6 +1,8 @@
 # Corporate Talent Hub
 
-A console-based employee management system built with Java 17, JDBC, and the H2 embedded database. This project demonstrates relational persistence, the MVC architectural pattern, modern Java resource management, and the use of records for immutable data transfer.
+A console-based employee management system developed for a mid-sized company looking to digitize its HR operations. The system allows the HR team to register, update, and query employee records through a console interface backed by a relational database.
+
+This implementation represents the foundational backend layer of the platform, built with Java 17 and JDBC, designed to scale toward a full REST API with Spring Boot in future iterations.
 
 ---
 
@@ -117,12 +119,40 @@ The final report uses Java Text Blocks, introduced as a standard feature in Java
 
 ---
 
+## Technology Strategy
+
+The technology choices in this project were made as a coherent stack, not as isolated decisions.
+
+H2 was selected over an external database engine because portability was a priority: the system must run on any machine without configuration. JDBC was chosen over a higher-level ORM such as Hibernate because the project scope requires understanding raw SQL and connection lifecycle management — abstractions would hide the concepts this implementation is meant to demonstrate.
+
+Java 17 records complement JDBC by eliminating mutable intermediate objects during read operations. The combination reduces boilerplate, prevents accidental data mutation in the report layer, and makes the mapping from ResultSet to data structure explicit and traceable.
+
+PreparedStatement combined with input validation at the view layer creates two independent security barriers: one at the UI level (rejecting empty or invalid values before they reach the database) and one at the SQL level (preventing injection regardless of what values arrive). Neither layer depends on the other, which means the system remains secure even if one barrier is bypassed.
+
+MVC separates these concerns so that each technology operates within its designated layer. JDBC stays in the model, validation stays in the view, and the controller remains free of both — making the codebase maintainable and each layer independently testable.
+
+---
+
+## Limitations and Future Improvements
+
+The current implementation covers the core functional requirements. The following improvements are identified for future iterations:
+
+The in-memory H2 database does not persist data between executions. Migrating to a file-based H2 configuration or a production database such as PostgreSQL would require changing only the connection URL and Maven dependency, with no changes to the DAO or controller layers.
+
+Each database operation opens and closes a new connection. In a production environment with concurrent users, a connection pool such as HikariCP would significantly reduce overhead by reusing existing connections instead of creating new ones on every request.
+
+Input validation is currently handled at the console layer. In a REST API context, this responsibility would move to a dedicated validation layer using annotations such as those provided by Jakarta Bean Validation, keeping validation rules close to the data model rather than the interface.
+
+The DAO interface is designed to support alternative implementations without modifying the controller or view. A future iteration could introduce a Spring Boot REST layer on top of the existing model and controller, reusing the business logic while replacing only the view layer.
+
+---
+
 ## CRUD Operations
 
-| Operation | SQL Statement                     | Method                          |
-|-----------|-----------------------------------|---------------------------------|
-| Insert    | INSERT INTO employees             | EmployeeDAOImpl.insert()        |
-| Read all  | SELECT id, name, role, salary     | EmployeeDAOImpl.findAll()       |
-| Update    | UPDATE employees SET ... WHERE id | EmployeeDAOImpl.update()        |
-| Delete    | DELETE FROM employees WHERE id    | EmployeeDAOImpl.delete()        |
+| Operation | SQL Statement                     | Method                             |
+|-----------|-----------------------------------|------------------------------------|
+| Insert    | INSERT INTO employees             | EmployeeDAOImpl.insert()           |
+| Read all  | SELECT id, name, role, salary     | EmployeeDAOImpl.findAll()          |
+| Update    | UPDATE employees SET ... WHERE id | EmployeeDAOImpl.update()           |
+| Delete    | DELETE FROM employees WHERE id    | EmployeeDAOImpl.delete()           |
 | Report    | SELECT ... ORDER BY salary DESC   | EmployeeDAOImpl.findAllAsRecords() |
