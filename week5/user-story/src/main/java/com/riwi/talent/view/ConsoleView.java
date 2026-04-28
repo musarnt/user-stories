@@ -25,7 +25,7 @@ public class ConsoleView {
 
         while (running) {
             printMenu();
-            int option = readInt("Select an option: ");
+            int option = readMenuOption("Select an option: ");
 
             switch (option) {
                 case 1 -> insertEmployee();
@@ -85,7 +85,7 @@ public class ConsoleView {
 
     private void updateEmployee() {
         System.out.println("--- Update Employee ---");
-        int id        = readInt("Employee ID to update: ");
+        int id        = readId("Employee ID to update: ");
         String name   = readString("New name: ");
         String role   = readString("New role: ");
         double salary = readDouble("New salary: ");
@@ -94,35 +94,78 @@ public class ConsoleView {
 
     private void deleteEmployee() {
         System.out.println("--- Delete Employee ---");
-        int id = readInt("Employee ID to delete: ");
+        int id = readId("Employee ID to delete: ");
         controller.deleteEmployee(id);
     }
 
     // Helper methods — all Scanner interaction goes through here
+
     private String readString(String prompt) {
         System.out.print(prompt);
-        return scanner.nextLine();
+        String value = scanner.nextLine().trim();
+        // Validate that the string is not empty
+        if (value == null || value.isEmpty()) {
+            System.out.println("This field cannot be empty.");
+            return readString(prompt);
+        }
+        return value;
     }
 
-    private int readInt(String prompt) {
+    private int readMenuOption(String prompt) {
         System.out.print(prompt);
-        while (!scanner.hasNextInt()) {
-            System.out.print("Please enter a valid number: ");
-            scanner.next();
+        String input = scanner.nextLine().trim();
+        if (input.isEmpty()) {
+            System.out.println("This field cannot be empty.");
+            return readMenuOption(prompt);
         }
-        int value = scanner.nextInt();
-        scanner.nextLine(); // consume the newline left by nextInt()
-        return value;
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number.");
+            return readMenuOption(prompt);
+        }
+    }
+
+    private int readId(String prompt) {
+        System.out.print(prompt);
+        String input = scanner.nextLine().trim();
+        if (input.isEmpty()) {
+            System.out.println("This field cannot be empty.");
+            return readId(prompt);
+        }
+        try {
+            int value = Integer.parseInt(input);
+            // IDs are auto-generated starting from 1 — zero or negative values are invalid
+            if (value <= 0) {
+                System.out.println("ID must be greater than zero.");
+                return readId(prompt);
+            }
+            return value;
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number.");
+            return readId(prompt);
+        }
     }
 
     private double readDouble(String prompt) {
         System.out.print(prompt);
-        while (!scanner.hasNextDouble()) {
-            System.out.print("Please enter a valid number: ");
-            scanner.next();
+        String input = scanner.nextLine().trim();
+        // Validate that the field is not empty
+        if (input.isEmpty()) {
+            System.out.println("This field cannot be empty.");
+            return readDouble(prompt);
         }
-        double value = scanner.nextDouble();
-        scanner.nextLine(); // consume the newline left by nextDouble()
-        return value;
+        try {
+            double value = Double.parseDouble(input);
+            // Validate that salary is a positive value
+            if (value <= 0) {
+                System.out.println("Salary must be greater than zero.");
+                return readDouble(prompt);
+            }
+            return value;
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number.");
+            return readDouble(prompt);
+        }
     }
 }
